@@ -53,8 +53,8 @@ function tt_register_geocoder_widget() {
 add_action( 'widgets_init', 'tt_register_geocoder_widget' );
 
 function tt_geocoder() {
-    $lat = "60.2015185792087";
-    $lng = "24.6667520050026";
+  $lat = "60.2015185792087";
+  $lng = "24.6667520050026";
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, "http://api.okf.fi/gis/1/geocode.json?lat=" . $lat . "&lng=" . $lng);
   curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -63,7 +63,8 @@ function tt_geocoder() {
   curl_close($ch);
   $data = json_decode($data,true);
   $data=$data['results'];
-  $data=$data['formatted_address'];
+  $data=$data[0];
+  $data=$data['formatted_address']; 
   echo $data;
 }
 
