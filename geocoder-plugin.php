@@ -53,23 +53,18 @@ function tt_register_geocoder_widget() {
 add_action( 'widgets_init', 'tt_register_geocoder_widget' );
 
 function tt_geocoder() {
-  $osoite = "Kirstinmäki 11b28";
-  $osoite = urlencode($osoite);
+    $lat = "60.2015185792087";
+    $lng = "24.6667520050026";
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, "http://api.okf.fi/gis/1/geocode.json?address=" . $osoite);
+  curl_setopt($ch, CURLOPT_URL, "http://api.okf.fi/gis/1/geocode.json?lat=" . $lat . "&lng=" . $lng);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   $data = curl_exec($ch);
   curl_close($ch);
   $data = json_decode($data,true);
   $data=$data['results'];
-  $data=$data[0];
-  $data=$data['geometry'];
-  $data=$data['location'];
-  $longtitude = $data['lng'];
-  $latitude = $data['lat'];
-  echo $longtitude;
-  echo $latitude;
+  $data=$data['formatted_address'];
+  echo $data;
 }
 
 ?>
