@@ -69,30 +69,9 @@ function tt_geocoder() {
   $data = curl_exec($ch);
   curl_close($ch);
   $data = json_decode($data, true);
-  echo var_dump($data);
-
-  /*  $lat = floatval($data['latitude']);
-      $lng = floatval($data['longitude']); */
 
   $lat = $data['latitude'];
   $lng = $data['longitude'];
-
-  echo var_dump($lat);
-  echo var_dump($lng);
-
-  echo number_format($lat,64);
-  echo number_format($lng,64);
-
-
-  /* Echo IP Address */
-  echo '<p>Your IP Address is: ';
-  echo $ip;
-  echo '</p>';
-
-  /* Echo coordinates */
-  echo '<p>Your coordinates: ';
-  echo $lat . ',' . $lng;
-  echo '</p>';
 
   /* Get formatted address from Geocoder API */
   $ch = curl_init();
