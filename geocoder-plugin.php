@@ -61,17 +61,16 @@ function tt_geocoder() {
   /* Get IP address from server */
   $ip= $_SERVER['REMOTE_ADDR'];
 
-  /* Get IP address coordinates from Dazzlepod API */
+  /* Get IP address coordinates from IP Info DB API */
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, "http://dazzlepod.com/ip/" . $ip . ".json");
+  curl_setopt($ch, CURLOPT_URL, "http://api.ipinfodb.com/v3/ip-city/?key=dbc019823824b0e7943b0c1f29033328d3a416513a3ead4151b1e133cb253454&ip=" . $ip);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   $data = curl_exec($ch);
   curl_close($ch);
-  $data = json_decode($data, true);
-
-  $lat = $data['latitude'];
-  $lng = $data['longitude'];
+  $data = explode(";", $data);
+  $lat = $data[8];
+  $lng = $data[9];
 
   /* Get formatted address from Geocoder API */
   $ch = curl_init();
@@ -89,7 +88,6 @@ function tt_geocoder() {
   echo '<p><a href="http://api.okf.fi/console/">Geocoder API</a> result address: ';
   echo $osoite;
   echo '</p>';
-
 
 }
 
