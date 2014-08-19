@@ -53,8 +53,17 @@ function tt_register_geocoder_widget() {
 add_action( 'widgets_init', 'tt_register_geocoder_widget' );
 
 function tt_geocoder() {
-  $lat = "60.2015185792087";
-  $lng = "24.6667520050026";
+  $ip= $_SERVER['REMOTE_ADDR'];
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, "http://dazzlepod.com/ip/" . $ip . ".json");
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  $data = curl_exec($ch);
+  curl_close($ch);
+  $data = json_decode($data,true);
+  $lat = $data['latitude'];
+  $lng = $data['longitude'];
+
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, "http://api.okf.fi/gis/1/geocode.json?lat=" . $lat . "&lng=" . $lng);
   curl_setopt($ch, CURLOPT_HEADER, 0);
