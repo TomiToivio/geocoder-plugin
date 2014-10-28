@@ -29,7 +29,7 @@ License: GPL2
 /* Geocoder Widget */
 class ttGeocoderWidget extends WP_Widget {
 
-  function SeAnalyticsWidget() {
+  function ttGeocoderWidget() {
     // Instantiate the parent object
     parent::__construct( false, 'Geocoder Widget' );
   }
